@@ -1,0 +1,83 @@
+#OS Hardening Windows
+enter into cmd prompt or search and type 
+gpedit.msc
+get into path 
+Configuration\Windows Settings\Security Settings\Account
+Policies\
+
+get into password Password Policy and perform
+
+* Enforce password history - 5 passwords remembered
+* Maximum password age - 30 days
+* Maximum password length - 10 characters
+* Password must meet complexity requirements - Enabled
+
+get into account Lockout Policy and perform
+
+1. Account lockout duration 30 minutes
+2. Account lockout threshold 4 invalid logon attempts
+3. Reset account lockout counter after - 30 minutes
+
+get into local Policy and perform
+
+1. Audit logon events - success, failure
+2. Audit system events - success, failure
+
+Firewall
+
+1. Windows Firewall with Advance Security provides network security for Windows computers. – Firewall is on and not configured
+2. Printer and SMB services disabled
+
+Windows update
+1. Configure the windows update -> enabled. ( auto downloaded and install manually).
+
+Roles:
+1. WSUS roles installed.
+
+Event log Size :
+
+Default event log size is :20 MB
+To change the size of the Event log size à Compute management àevent viewer à change required Size from based.
+
+Note: The Account Logon audit policy logs the results of validation tests of credentials submitted for user account logon requests. The server that is authoritative 
+for the credentials must have this audit policy enabled. For domain member machines, this policy will only log events for local user accounts.
+
+DONE AT THIS STAGE
+
+Configure the group policy object below to match the listed audit settings:
+Computer Configuration\Windows Settings\Security Settings\
+Advanced Audit Policy Configuration\Audit Policies\Account Logon\
+•Credential Validation — Success and Failure
+
+Configure the group policy object below to match the listed audit settings:
+Computer Configuration\Windows Settings\Security Settings\
+
+Advanced Audit Policy Configuration\Audit Policies\Account Management\
+•Computer Account Management — Success and Failure
+•Other Account Management Events — Success and Failures
+•Security Group Management — Success and Failure
+•User Account Management — Success and Failure
+
+
+Configure the group policy object below to match the listed audit settings:
+
+Computer Configuration\Windows Settings\Security Settings\
+Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\
+•Account Lockout — Success
+•Logoff — Success
+•Logon — Success and Failure
+•Other Logon/Logoff Events — Success and Failure
+•Special Logon — Success
+
+Configure the group policy object below to match the listed audit settings:
+
+Computer Configuration\Windows Settings\Security Settings\
+Advanced Audit Policy Configuration\Audit Policies\Policy Change\
+•Audit Policy Change — Success and Failure
+•Authentication Policy Change — Success
+
+Configure the group policy object below to match the listed audit settings:
+Computer Configuration\Windows Settings\Security Settings\
+
+Advanced Audit Policy Configuration\Audit Policies\Privilege Use\
+•Sensitive Privilege Use — Success and Failure
